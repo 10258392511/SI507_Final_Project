@@ -2,3 +2,4 @@ __pycache__
 secrets.py
 *json
 additional_tests.py
+.DS_Store

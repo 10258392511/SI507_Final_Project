@@ -1,6 +1,7 @@
 # This file contains functions for common use
 import json
 
+
 def construct_unique_key(base_url, params, connector="_"):
     """
     Create a unique key for a query.
