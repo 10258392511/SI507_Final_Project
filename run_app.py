@@ -20,8 +20,11 @@ if __name__ == '__main__':
             print(f"current: {site_key}")
             print("-" * 30)
             tourist_site = TouristSite(**site)
-            # TODO: save to DB
-            tourist_site.save_to_db(cache_map, db_filename=db_filename)
+            try:
+                tourist_site.save_to_db(cache_map, db_filename=db_filename)
+            except sqlite3.IntegrityError as e:
+                print(f"###duplicate: {site_key}###")
+                print("#" * 30)
 
     print("Done!")
 
