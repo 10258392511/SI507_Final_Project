@@ -3,4 +3,3 @@ secrets.py
 *json
 additional_tests.py
 .DS_Store
-*sqlite
