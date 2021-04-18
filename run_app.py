@@ -8,11 +8,11 @@ if __name__ == '__main__':
     cache_weather = "cache_weather.json"
     db_filename = "MichiganTouristSites.sqlite"
 
-    # create DB
-    schema()
-
     # retrieve static data and store into DB
     if not os.path.exists("MichiganTouristSites.sqlite"):
+        # create DB
+        schema()
+
         print("Initializing database...")
         cache_filename = "cache_scraper.json"
         detail_urls = scrape_main_page(cache_filename)
