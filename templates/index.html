@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}
+MI Attractions for U-M Wolverines
+{% endblock %}
+
+{% block add_styles %}
+    table a {
+        color: #00274C;
+        text-decoration: none;
+    }
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-9 card">
+            <div class="card-body">
+                A comprehensive view of Michigan attractions! As a U-M Wolverine myself I hope it helps make a fit choice in our busy life!
+            </div>
+        </div>
+
+        <div class="col-3 ml-auto">
+            <form action="/" method="POST">
+                <div class="row g-2 align-items-center">
+                    <div class="col-6 text-end">
+                        <label class="col-form-label">Search Near-By</label>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" type="text" id="index_in_text" name="location" placeholder="Some Place in MI">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        {% if msg is not none %}
+            <div class="col-12 alert alert-secondary" role="alert">
+                {{ msg }}
+            </div>
+        {% endif %}
+        <table class="col-12 table table-bordered">
+            <tr class="text-center">
+                <th>No.</th>
+                <th>Name</th>
+                <th>Thumbnail</th>
+            </tr>
+            {% set colors = ["#EDECEC", "#FEFEFE"] %}
+            {% for result in results %}
+                <tr class="text-center align-middle" style="background-color: {{ colors[loop.index % 2] }}">
+                    <td>{{ loop.index }}</td>
+                    <td><a href="{{ url_for('place_index', nm=result[0]) }}">{{ result[0] }}</a></td>
+                    <td class="text-center">
+                        <img src="{{ result[1] }}" class="img-thumbnail img-fluid" width="100" height="100" alt="missing thumbnail">
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+{% endblock %}

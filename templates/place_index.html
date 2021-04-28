@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+{{ name }}
+{% endblock %}
+
+{% block add_styles %}
+    table a {
+        color: #00274C;
+        text-decoration: none;
+    }
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <table class="col-12 table text-center">
+            <tr>
+                <th>Name</th>
+                <th class="table-active">Description</th>
+                <th>Map</th>
+                <th class="table-active">Weather</th>
+            </tr>
+            <tr>
+                <td class="table-active">{{ name }}</td>
+                <td ><a href="{{ url_for('place_desc', nm=name) }}">See description here</a></td>
+                <td class="table-active"><a href="{{ url_for('place_map', nm=name) }}">See map here</a></td>
+                <td><a href="{{ url_for('place_weather', nm=name) }}">See weather forecast here</a></td>
+            </tr>
+        </table>
+
+        <div class="d-grid d-md-flex justify-content-md-end col-12">
+            <a role="button" href="{{ url_for('index') }}" class="btn btn-primary">Back Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

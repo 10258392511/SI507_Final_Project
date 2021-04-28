@@ -4,6 +4,7 @@ from data_api import *
 
 db_str_delimiter = "!#!"
 
+
 def schema(db_filename="MichiganTouristSites.sqlite"):
     """
     Creates database.

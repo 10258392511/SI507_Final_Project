@@ -1,5 +1,6 @@
 import os
 from classes import *
+from router import *
 
 if __name__ == '__main__':
     cache_scraper = "cache_scraper.json"
@@ -33,3 +34,6 @@ if __name__ == '__main__':
         print("Found database")
 
     pass
+
+    # run the server, debug=False
+    app.run()

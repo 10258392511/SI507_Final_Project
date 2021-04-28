@@ -1,5 +1,6 @@
 # This file contains functions for common use
 import json
+import sqlite3
 
 
 def construct_unique_key(base_url, params, connector="_"):
@@ -68,3 +69,29 @@ def save_cache(cache_dict, filename):
     """
     with open(filename, "w") as wf:
         wf.write(json.dumps(cache_dict))
+
+
+def query(q, db):
+    """
+    Queries a database.
+
+    Parameters
+    ----------
+    q: str
+        The query.
+    db: str
+        Database filename.
+
+    Returns
+    -------
+    list
+        List of query results as tuples.
+    """
+    conn = sqlite3.connect(db)
+    cur = conn.cursor()
+    cur.execute(q)
+    results = [result for result in cur.fetchall()]
+
+    conn.close()
+
+    return results
