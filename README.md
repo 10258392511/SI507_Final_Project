@@ -25,4 +25,4 @@ OPENWATHER_API_KEY = ""
 You can find link and description of data sources in the project document.
 
 ## How to Use
-After supplying API keys, please run "run_app.py" file. You'll see the server is up; click on the localhost http://127.0.0.1:5000/ to view the index page. There you can enter a place in the text input named "Search Near-By", hit enter and you'll see places sorted by distance. Then select one place to see its description, map and weather forecast by following the links. Note you can easily return back by clicking on "Back" buttons.
+After supplying API keys, please run "run_app.py" file. You'll see the server is up; click on the localhost http://127.0.0.1:5000/ to view the index page. There you can enter a place in the text input named "Search Near-By", hit enter and you'll see places sorted by distance. Then select one place to see its description, interact with map and view responsive weather forecast by following the links. Note you can easily return back by clicking on "Back" buttons.
