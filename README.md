@@ -8,10 +8,10 @@ requests, beautifulsoup4, flask, plotly (please use requirements.txt for install
 Please create a "secrets.py" file at the root level of the project (at same level of run_app.py), and supply your API keys in it. You can copy the following code and fill in your keys.
 ```python
 # Twitter
-TWITTER_API_KEY = ''
-TWITTER_API_SECRET = ''
-TWITTER_ACCESS_TOKEN = ''
-TWITTER_ACCESS_TOKEN_SECRET = ''
+TWITTER_API_KEY = ""
+TWITTER_API_SECRET = ""
+TWITTER_ACCESS_TOKEN = ""
+TWITTER_ACCESS_TOKEN_SECRET = ""
 
 # MapQuest
 MAPQUEST_API_KEY = ""
