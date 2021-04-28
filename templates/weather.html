@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block add_styles %}
-
+    @media 
 {% endblock %}
 
 {% block main %}
 <div class="container-fluid">
     <div class="row align-items-center">
         <p class="col-12 text-center h4 mt-2 mb-2">Weather Forecast for {{ name }}</p>
-        <div class="col-sm-6 col-12">
+        <div class="col-sm-6 col-12 mb-2 mb-md-0">
             {{ weather_div|safe }}
         </div>
         <div class="col-sm-6 col-12">
