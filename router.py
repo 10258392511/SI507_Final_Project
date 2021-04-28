@@ -1,3 +1,6 @@
+import plotly.graph_objects as go
+from plotly import io
+
 from flask import Flask, url_for, render_template, redirect, session, request
 from pprint import pprint
 from utilities import query
@@ -77,10 +80,59 @@ def place_map(nm):
     return render_template("map.html", API_KEY=MAPBOX_API_KEY, name=nm, address=address, lat=lat, lon=lon)
 
 
+def make_plot(xvals, yvals, texts, yaxis_name, plot_name):
+    """
+    Helper function for place_weather(.). Makes a line plot.
+
+    Parameters
+    ----------
+    xvals, yvals, texts: list
+        Data to be plotted.
+    yaxis_name, plot_name: str
+        Name of the figure.
+
+    Returns
+    -------
+    str
+        Figure in HTML.
+    """
+    trace = go.Scatter(x=xvals, y=yvals,
+                       mode="lines+markers",
+                       text=texts,
+                       marker={"symbol": "circle"},
+                       line={"width": 3})
+    data = [trace]
+    layout = {"title": {"text": f"{plot_name}", "x": 0.5},
+              "xaxis": {"title": "time in hrs"},
+              "yaxis": {"title": f"{yaxis_name}"}}
+    fig = go.Figure(data=data, layout=layout)
+    div = fig.to_html(full_html=False)
+
+    return div
+
+
 @app.route("/<nm>/weather")
 def place_weather(nm):
+    map_place_default = "Ann Arbor"
     tourist_site = load_from_db(nm)
-    pass
+    lat, lon = tourist_site.lat, tourist_site.lon
+
+    if lat is None or lon is None:
+        map_info_default = get_map_data(map_place_default, "cache_map.json")
+        lat, lon = map_info_default["lat"], map_info_default["lng"]
+
+    tourist_site.lat, tourist_site.lon = lat, lon
+    weather_data = tourist_site.get_weather("cache_weather.json")
+    # print(f"lat: {lat}, lon: {lon}")
+    # pprint(weather_data)
+    xvals = list(range(3, 3 * len(weather_data) + 3, 3))
+    texts = [data_pt["desc"] for data_pt in weather_data]
+    y_temp = [data_pt["temp"] for data_pt in weather_data]
+    y_wind = [data_pt["wind_speed"] for data_pt in weather_data]
+    weather_div = make_plot(xvals, y_temp, texts, "temperature in Celsius", "Temperature")
+    wind_div = make_plot(xvals, y_wind, texts, "wind speed in m/s", "Wind Speed")
+
+    return render_template("weather.html", name=nm, weather_div=weather_div, wind_div=wind_div)
 
 
 if __name__ == '__main__':

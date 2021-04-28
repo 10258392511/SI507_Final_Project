@@ -33,7 +33,5 @@ if __name__ == '__main__':
     else:
         print("Found database")
 
-    pass
-
     # run the server, debug=False
     app.run()

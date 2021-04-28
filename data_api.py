@@ -218,6 +218,7 @@ def get_weather_data(lat, lon, cache_filename):
     """
     baseurl = "https://community-open-weather-map.p.rapidapi.com/forecast"
     params = {"lat": f"{lat}", "lon": f"{lon}", "units": "\"metric\" or \"imperial\""}
+    # params = {"lat": f"{lat}", "lon": f"{lon}", "units": "\"metric\""}
 
     headers = {
         'x-rapidapi-key': f"{open_weather_key}",
@@ -236,12 +237,13 @@ def get_weather_data(lat, lon, cache_filename):
         cache[unique_key] = resp
         save_cache(cache, cache_filename)
 
-    pprint(resp, indent=2)
+    # pprint(resp, indent=2)
     out_data_list = []
     data_list = resp["list"]
     for data_pt in data_list:
         dict_pt = dict()
         dict_pt["temp"] = data_pt["main"]["temp"] - 273.15
+        # dict_pt["temp"] = data_pt["main"]["temp"]
         dict_pt["desc"] = data_pt["weather"][0]["description"]
         dict_pt["wind_speed"] = data_pt["wind"]["speed"]
         out_data_list.append(dict_pt)

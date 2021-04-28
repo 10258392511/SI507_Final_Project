@@ -210,7 +210,7 @@ class TouristSite(object):
         if lon is None or lat is None:
             return dict()
 
-        return get_weather_data(lon, lat, cache_filename)
+        return get_weather_data(lat, lon, cache_filename)
 
     def save_to_db(self, cache_map, db_filename="MichiganTouristSites.sqlite"):
         """

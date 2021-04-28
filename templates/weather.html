@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+{{ name }} Weather
+{% endblock %}
+
+{% block header %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block add_styles %}
+
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <p class="col-12 text-center h4 mt-2 mb-2">Weather Forecast for {{ name }}</p>
+        <div class="col-sm-6 col-12">
+            {{ weather_div|safe }}
+        </div>
+        <div class="col-sm-6 col-12">
+            {{ wind_div|safe }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end col-12">
+            <a role="button" href="{{ url_for('index') }}" class="btn btn-primary">Back Home</a>
+            <a role="button" href="{{ url_for('place_index', nm=name) }}" class="btn btn-primary">Back To {{ name }}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
