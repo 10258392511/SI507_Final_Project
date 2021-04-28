@@ -3,6 +3,7 @@ from pprint import pprint
 from utilities import query
 from data_api import get_map_data
 from classes import *
+from secrets import *
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "MI_travel"
@@ -17,7 +18,7 @@ def index():
         session["location"] = loc
         return redirect(url_for("index"))
 
-    print(f"location: {session.get('location')}")
+    # print(f"location: {session.get('location')}")
     loc = session.get("location")
     q = """
     SELECT T.Name, PhotoURL, Lat, Lng
@@ -51,16 +52,34 @@ def place_index(nm):
 
 @app.route("/<nm>/desc")
 def place_desc(nm):
-    pass
+    tourist_site = load_from_db(nm)
+    desc = tourist_site.desc
+    photo_url = tourist_site.photo_url
+    twitter = tourist_site.get_twitter("cache_twitter.json")
+
+    # pprint(twitter)
+
+    return render_template("desc.html", name=nm, desc=desc, photo_url=photo_url, twitter=twitter)
 
 
 @app.route("/<nm>/map")
 def place_map(nm):
-    pass
+    map_place_default = "Ann Arbor"
+    tourist_site = load_from_db(nm)
+    address = tourist_site.address
+    lat, lon = tourist_site.lat, tourist_site.lon
+
+    if lat is None or lon is None:
+        map_info_default = get_map_data(map_place_default, "cache_map.json")
+        lat, lon = map_info_default["lat"], map_info_default["lng"]
+
+    # print(f"lon: {lon}, lat: {lat}")
+    return render_template("map.html", API_KEY=MAPBOX_API_KEY, name=nm, address=address, lat=lat, lon=lon)
 
 
 @app.route("/<nm>/weather")
 def place_weather(nm):
+    tourist_site = load_from_db(nm)
     pass
 
 

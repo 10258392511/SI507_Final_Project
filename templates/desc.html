@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}
+{{ name }} Description
+{% endblock %}
+
+{% block add_styles %}
+
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-6 jumbotron jumbotron-fluid mt-3">
+            <div class="container-fluid text-center">
+                <img class="img img-fluid" src="{{ photo_url }}">
+            </div>
+        </div>
+
+        <div class="col-6 card">
+            <div class="card-body">
+                <h4 class="card-title">{{ name }}</h4>
+                {% for p in desc %}
+                    <p class="card-text">
+                        {{ p }}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if twitter|length > 0%}
+        <div class="col-12 card">
+            <div class="card-body">
+                <h4 class="card-title">Twitter Info</h4>
+                {% for key, val in twitter.items() %}
+                    <h5 class="card-title">
+                        {% if "keyword" not in key %}
+                            User @{{ key }}
+                        {% else %}
+                            Searched by {{ key }}
+                        {% endif %}
+                    </h5>
+                    <ul class="list-group">
+                        {% for time, text in twitter[key].items() %}
+                        <li class="list-group-item">{{time}}: {{ text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end col-12">
+            <a role="button" href="{{ url_for('index') }}" class="btn btn-primary">Back Home</a>
+            <a role="button" href="{{ url_for('place_index', nm=name) }}" class="btn btn-primary">Back To {{ name }}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
