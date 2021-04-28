@@ -3,6 +3,13 @@ This is my final project for SI 507 at University of Michigan.
 
 ## Requisite Packages
 requests, beautifulsoup4, flask, plotly (please use requirements.txt for installation)
+```bash
+pip install -r requirements.txt
+```
+or
+```bash
+python3 -m pip install -r requirements.txt
+```
 
 ## Supplying API Keys
 Please create a "secrets.py" file at the root level of the project (at same level of run_app.py), and supply your API keys in it. You can copy the following code and fill in your keys.
